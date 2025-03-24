@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Eyed Monster</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        canvas {
+            border: 2px solid black;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mckenley's Monster</h1>
+    
+    <p>This cheerful, one-eyed monster gleefully bounces 
+        through the sunlit fields, 
+        its vibrant green body glowing under the golden rays.
+        With every hop, it leaves behind a trail of laughter,
+        exploring the world with endless curiosity and a playful spirit!</p>
+    
+    <script>
+        let monsterX = 200;
+        let monsterY = 250;
+        let monsterSpeedX = 3;
+
+        let cloudX1 = 100;
+        let cloudX2 = 300;
+        let cloudX3 = 220;
+        let cloudSpeed = 1;
+
+        function setup() {
+            createCanvas(400, 400);
+            noStroke();
+        }
+
+        function draw() {
+            background(220);
+            drawBackground();
+            fill(100, 200, 100);
+            rect(0, height - 50, width, 50);
+            drawMonster(monsterX, monsterY);
+
+            monsterX += monsterSpeedX;
+            if (monsterX > width - 50 || monsterX < 50) {
+                monsterSpeedX = -monsterSpeedX;
+            }
+
+            cloudX1 += cloudSpeed;
+            cloudX2 += cloudSpeed;
+            cloudX3 += cloudSpeed;
+
+            if (cloudX1 > width + 60) cloudX1 = -60;
+            if (cloudX2 > width + 60) cloudX2 = -60;
+            if (cloudX3 > width + 60) cloudX3 = -60;
+        }
+
+        function drawBackground() {
+            for (let i = 0; i <= height / 2; i++) {
+                let inter = map(i, 0, height / 2, 0, 1);
+                let c = lerpColor(color(135, 206, 250), color(70, 130, 180), inter);
+                stroke(c);
+                line(0, i, width, i);
+            }
+
+            fill(255, 223, 0);
+            noStroke();
+            ellipse(width - 80, 80, 100, 100);
+
+            fill(100, 100, 100);
+            triangle(0, height - 50, 150, 100, 300, height - 50);
+            fill(150, 150, 150);
+            triangle(50, height - 50, 200, 50, 350, height - 50);
+
+            fill(255, 255, 255, 200);
+            ellipse(cloudX1, 100, 120, 60);
+            ellipse(cloudX2, 120, 120, 60);
+            ellipse(cloudX3, 60, 100, 50);
+        }
+
+        function drawMonster(x, y) {
+            fill(50, 200, 50);
+            ellipse(x, y, 100, 100);
+
+            fill(255);
+            ellipse(x, y - 10, 40, 40);
+            fill(0);
+            ellipse(x, y - 10, 20, 20);
+
+            fill(200, 150, 100);
+            triangle(x - 30, y - 40, x - 10, y - 60, x, y - 40);
+            triangle(x + 30, y - 40, x + 10, y - 60, x, y - 40);
+
+            fill(0);
+            arc(x, y + 20, 50, 30, 0, PI);
+
+            fill(255);
+            triangle(x - 10, y + 20, x - 5, y + 10, x, y + 20);
+            triangle(x + 10, y + 20, x + 5, y + 10, x, y + 20);
+
+            fill(50, 200, 50);
+            ellipse(x - 55, y + 10, 20, 50);
+            ellipse(x + 55, y + 10, 20, 50);
+
+            rect(x - 25, y + 50, 15, 40, 5);
+            rect(x + 10, y + 50, 15, 40, 5);
+        }
+    </script>
+</body>
+</html>
